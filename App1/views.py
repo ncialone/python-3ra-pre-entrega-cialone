@@ -16,7 +16,7 @@ def estudiantes(request):
 def entregables(request):
     return render(request,'App1/entregables.html')
 
-def cursoFormulario(request):
+def cursos(request):
     if request.method == "POST":
         miFormulario = CursoFormulario(request.POST)
         if miFormulario.is_valid():
@@ -26,9 +26,9 @@ def cursoFormulario(request):
             return render(request, "App1/inicio.html")
     else:
         miFormulario = CursoFormulario
-    return render(request, "App1/cursoFormulario.html", {"miFormulario": miFormulario})
+    return render(request, "App1/cursos.html", {"miFormulario": miFormulario})
 
-def profesorFormulario(request):
+def profesores(request):
     if request.method == "POST":
         miFormulario = ProfesorFormulario(request.POST) # Aqui me llega la informacion del html
         if miFormulario.is_valid():
@@ -39,13 +39,11 @@ def profesorFormulario(request):
             return render(request, "App1/inicio.html")
     else:
         miFormulario = ProfesorFormulario()
-    return render(request, "App1/profesorFormulario.html", {"miFormulario": miFormulario})
+    return render(request, "App1/profesores.html", {"miFormulario": miFormulario})
 
-def estudianteFormulario(request):
+def estudiantes(request):
     if request.method == "POST":
         miFormulario = EstudianteFormulario(request.POST) # Aqui me llega la informacion del html
-        print(miFormulario)
-        
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
             curso = Estudiante(int(informacion['id']),str(informacion['nombre']),str(informacion['apellido']),
@@ -53,21 +51,32 @@ def estudianteFormulario(request):
             curso.save()
             return render(request, "App1/inicio.html")
     else:
-        miFormulario = ProfesorFormulario()       
-    return render(request, "App1/estudianteFormulario.html", {"miFormulario": miFormulario})
+        miFormulario = EstudianteFormulario()       
+    return render(request, "App1/estudiantes.html", {"miFormulario": miFormulario})
 
-def entregableFormulario(request):
+def entregables(request):
     if request.method =="POST":
         miFormulario = EntregableFormulario(request.POST) # Aqui me llega la informacion del html
-        print(miFormulario)
-        
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            #LA FECHA SE INGRESA EN FORMATO YYYY-MM-DD!!!!!!!
             curso = Entregable(int(informacion['id']),str(informacion['nombre']),(informacion['fechaentrega']),bool(['entregado'])) 
             curso.save()
             return render(request, "App1/inicio.html")
     else:
         miFormulario = EntregableFormulario()
         miFormulario.fields['fechaentrega'].widget = DateInput(attrs={'type': 'date'})       
-    return render(request, "App1/entregableFormulario.html", {"miFormulario": miFormulario})
+    return render(request, "App1/entregables.html", {"miFormulario": miFormulario})
+
+def busquedaCurso(request):
+    return render(request,'App1/busquedaCurso.html')
+
+def buscar(request):
+    if request.GET['curso']:
+        curso = request.GET['curso']
+        #LLEGA EL CURSO, FILTRAMOS Y BUSCAMOS EN BD POR VALOR EXACTO
+        cursos= Curso.objects.filter(curso__exact=curso)
+        if cursos.exists():
+            return render(request,'App1/resultadosBusqueda.html', {"cursos":cursos, "comisiones": curso })
+        else:
+            respuesta= "Datos no encontrados"      
+    return HttpResponse(respuesta)

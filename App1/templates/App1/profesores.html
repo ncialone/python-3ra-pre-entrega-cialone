@@ -1,12 +1,15 @@
 {% extends "App1/padre.html" %}
-
 {% load static %}
-
 {% block contenidoQueCambia %}
 
-    <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
-    <h1>Profesores</h1>
-    <p>Acá va la info de los profesores</p>
-
+<div style="display: flex; justify-content: center; align-items: center; min-height: 20vh;">
+    <form action="" method="post">{% csrf_token %}
+        <h3 style="text-align: center;">Formulario - Agregar profesor</h3>
+        <table>
+            {{ miFormulario.as_table }}
+        </table>
+        <input type="submit" value="Enviar"style="margin-top: 20px;">
+    </form>
+</div>
 
 {% endblock %}
