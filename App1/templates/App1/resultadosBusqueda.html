@@ -1,20 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario - Resultado Busqueda</title>
-</head>
-<body>
-    <p> Estamos buscando el curso: {{curso}}</p>
+{% extends "App1/padre.html" %}
+{% load static %}
+
+
+{% block contenidoQueCambia %}
+<div style="display: flex; justify-content: center; align-items: center; min-height: 10vh;">
+    <h3 style="text-align: center;">Estamos buscando el curso:</h3>
+</div>
     {% if cursos %} 
-    <ul>
-    {% for curso in cursos %} 
-        <li>{{curso.nombre}}</li>
-        <li>{{curso.curso}}</li>
-    {% endfor %}
-    </ul>
+    <table style="border-collapse: collapse; margin: 0 auto; font-size: 1.2em;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid black; padding: 5px; text-align: center;">Nombre</th>
+                <th style="border: 1px solid black; padding: 5px; text-align: center;">Curso</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for curso in cursos %} 
+                <tr>
+                    <td style="border: 1px solid black; padding: 5px; text-align: center;">{{curso.nombre}}</td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: center;">{{curso.curso}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p style="display: flex; justify-content: center; align-items: center; min-height: 10vh; font-size: 1.2em">No se encontraron cursos.</p>
     {% endif %}
-</body>
-</html>
+</div>
+
+{% endblock %}

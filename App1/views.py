@@ -71,12 +71,24 @@ def busquedaCurso(request):
     return render(request,'App1/busquedaCurso.html')
 
 def buscar(request):
-    if request.GET['curso']:
-        curso = request.GET['curso']
-        #LLEGA EL CURSO, FILTRAMOS Y BUSCAMOS EN BD POR VALOR EXACTO
-        cursos= Curso.objects.filter(curso__exact=curso)
-        if cursos.exists():
-            return render(request,'App1/resultadosBusqueda.html', {"cursos":cursos, "comisiones": curso })
-        else:
-            respuesta= "Datos no encontrados"      
-    return HttpResponse(respuesta)
+    if request.method == 'POST':
+        # Verifica si la clave 'curso' está presente en el diccionario POST
+        if 'curso' in request.POST:
+            # Si la clave está presente, obtiene su valor y realiza la búsqueda
+            numero_curso = request.POST['curso']
+            cursos = Curso.objects.filter(curso__icontains=numero_curso)
+            return render(request, 'App1/resultadosBusqueda.html', {'cursos': cursos})
+    return render(request, 'App1/.html')
+
+
+
+#def buscar(request):
+#    if request.GET['curso']:
+#        curso = request.GET['curso']
+#        #LLEGA EL CURSO, FILTRAMOS Y BUSCAMOS EN BD POR VALOR EXACTO
+#        cursos= Curso.objects.filter(curso__exact=curso)
+#        if cursos.exists():
+#            return render(request,'App1/resultadosBusqueda.html', {"cursos":cursos, "comisiones": curso })
+#       else:
+#           respuesta= "Datos no encontrados"      
+#   return HttpResponse(respuesta)

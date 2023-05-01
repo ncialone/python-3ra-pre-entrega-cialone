@@ -11,6 +11,6 @@ urlpatterns = [
     #path('profesorFormulario', views.profesorFormulario, name="ProfesorFormulario"),
     #path('estudianteFormulario', views.estudianteFormulario, name="EstudianteFormulario"),
     #path('entregableFormulario', views.entregableFormulario, name="EntregableFormulario"),
-    path('busquedaCurso',views.busquedaCurso,name="BusquedaCurso"),
-    path('buscar/',views.buscar),
+    #path('busquedaCurso',views.busquedaCurso,name="BusquedaCurso"),
+    path('buscar/',views.buscar, name='buscar'),
 ]
