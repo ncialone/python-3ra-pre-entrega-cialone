@@ -21,7 +21,7 @@ def cursos(request):
         miFormulario = CursoFormulario(request.POST)
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            curso = Curso(int(informacion['id']), str(informacion['nombre']), int(informacion['curso']))
+            curso = Curso(str(informacion['nombre']), int(informacion['curso']))
             curso.save()
             return render(request, "App1/inicio.html")
     else:
@@ -33,7 +33,7 @@ def profesores(request):
         miFormulario = ProfesorFormulario(request.POST) # Aqui me llega la informacion del html
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            curso = Profesor(int(informacion['id']),str(informacion['nombre']),str(informacion['apellido']),
+            curso = Profesor(str(informacion['nombre']),str(informacion['apellido']),
                             informacion['email'], informacion['profesion'])
             curso.save()
             return render(request, "App1/inicio.html")
@@ -46,7 +46,7 @@ def estudiantes(request):
         miFormulario = EstudianteFormulario(request.POST) # Aqui me llega la informacion del html
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            curso = Estudiante(int(informacion['id']),str(informacion['nombre']),str(informacion['apellido']),
+            curso = Estudiante(str(informacion['nombre']),str(informacion['apellido']),
                                 informacion['email'])
             curso.save()
             return render(request, "App1/inicio.html")
@@ -59,7 +59,7 @@ def entregables(request):
         miFormulario = EntregableFormulario(request.POST) # Aqui me llega la informacion del html
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            curso = Entregable(int(informacion['id']),str(informacion['nombre']),(informacion['fechaentrega']),bool(['entregado'])) 
+            curso = Entregable(str(informacion['nombre']),(informacion['fechaentrega']),bool(informacion['entregado'])) 
             curso.save()
             return render(request, "App1/inicio.html")
     else:
@@ -79,16 +79,3 @@ def buscar(request):
             cursos = Curso.objects.filter(curso__icontains=numero_curso)
             return render(request, 'App1/resultadosBusqueda.html', {'cursos': cursos})
     return render(request, 'App1/.html')
-
-
-
-#def buscar(request):
-#    if request.GET['curso']:
-#        curso = request.GET['curso']
-#        #LLEGA EL CURSO, FILTRAMOS Y BUSCAMOS EN BD POR VALOR EXACTO
-#        cursos= Curso.objects.filter(curso__exact=curso)
-#        if cursos.exists():
-#            return render(request,'App1/resultadosBusqueda.html', {"cursos":cursos, "comisiones": curso })
-#       else:
-#           respuesta= "Datos no encontrados"      
-#   return HttpResponse(respuesta)
