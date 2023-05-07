@@ -1,0 +1,32 @@
+{% extends "App1/padre.html" %}
+{% load static %}
+
+{% block contenidoQueCambia %}
+<div style="display: flex; justify-content: center; align-items: center; min-height: 10vh;">
+    <h3 style="text-align: center;">Listado de entregables:</h3>
+</div>
+{% if entregables %}
+    <table style="border-collapse: collapse; margin: 0 auto; font-size: 1.2em;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid black; padding: 5px; text-align: center;">ID</th>
+                <th style="border: 1px solid black; padding: 5px; text-align: center;">Nombre</th>
+                <th style="border: 1px solid black; padding: 5px; text-align: center;">Fecha de entrega</th>
+                <th style="border: 1px solid black; padding: 5px; text-align: center;">Entregado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entregable in entregables %}
+                <tr>
+                    <td style="border: 1px solid black; padding: 5px; text-align: center;">{{ entregable.id }}</td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: center;">{{ entregable.nombre }}</td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: center;">{{ entregable.fechaentrega }}</td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: center;">{{ entregable.entregado }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p style="display: flex; justify-content: center; align-items: center; min-height: 10vh; font-size: 1.2em">No se encontraron entregables.</p>
+{% endif %}
+{% endblock %}

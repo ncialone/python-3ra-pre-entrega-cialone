@@ -1,0 +1,37 @@
+{% extends "App1/padre.html" %}
+{% load static %}
+
+
+{% block contenidoQueCambia %}
+<div style="display: flex; justify-content: center; align-items: center; min-height: 10vh;">
+    <h3 style="text-align: center;">Listado de profesores:</h3>
+</div>
+    {% if profesores %} 
+    <table style="border-collapse: collapse; margin: 0 auto; font-size: 1.2em;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid black; padding: 5px; text-align: center;">ID</th>
+                <th style="border: 1px solid black; padding: 5px; text-align: center;">Nombre</th>
+                <th style="border: 1px solid black; padding: 5px; text-align: center;">Apellido</th>
+                <th style="border: 1px solid black; padding: 5px; text-align: center;">Email</th>
+                <th style="border: 1px solid black; padding: 5px; text-align: center;">Profesión</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for profesor in profesores %} 
+                <tr>
+                    <td style="border: 1px solid black; padding: 5px; text-align: center;">{{profesor.id}}</td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: center;">{{profesor.nombre}}</td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: center;">{{profesor.apellido}}</td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: center;">{{profesor.email}}</td>
+                    <td style="border: 1px solid black; padding: 5px; text-align: center;">{{profesor.profesion}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p style="display: flex; justify-content: center; align-items: center; min-height: 10vh; font-size: 1.2em">No se encontraron profesores.</p>
+    {% endif %}
+</div>
+
+{% endblock %}

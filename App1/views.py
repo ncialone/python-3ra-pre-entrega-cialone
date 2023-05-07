@@ -7,8 +7,8 @@ from App1.forms import CursoFormulario, ProfesorFormulario, EstudianteFormulario
 # Create your views here.
 def inicio(request):
     return render(request, 'App1/inicio.html')
-def cursos(request):
-    return render(request,'App1/cursos.html')
+#def cursos(request):
+#    return render(request,'App1/cursos.html')
 def profesores(request):
     return render(request,'App1/profesores.html')
 def estudiantes(request):
@@ -33,9 +33,9 @@ def profesores(request):
         miFormulario = ProfesorFormulario(request.POST) # Aqui me llega la informacion del html
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            curso = Profesor(str(informacion['nombre']),str(informacion['apellido']),
+            profesor = Profesor(str(informacion['nombre']),str(informacion['apellido']),
                             informacion['email'], informacion['profesion'])
-            curso.save()
+            profesor.save()
             return render(request, "App1/inicio.html")
     else:
         miFormulario = ProfesorFormulario()
@@ -46,9 +46,9 @@ def estudiantes(request):
         miFormulario = EstudianteFormulario(request.POST) # Aqui me llega la informacion del html
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            curso = Estudiante(str(informacion['nombre']),str(informacion['apellido']),
+            estudiante = Estudiante(str(informacion['nombre']),str(informacion['apellido']),
                                 informacion['email'])
-            curso.save()
+            estudiante.save()
             return render(request, "App1/inicio.html")
     else:
         miFormulario = EstudianteFormulario()       
@@ -59,16 +59,16 @@ def entregables(request):
         miFormulario = EntregableFormulario(request.POST) # Aqui me llega la informacion del html
         if miFormulario.is_valid():
             informacion = miFormulario.cleaned_data
-            curso = Entregable(str(informacion['nombre']),(informacion['fechaentrega']),bool(informacion['entregado'])) 
-            curso.save()
+            entregable = Entregable((informacion['fechaentrega']),bool(informacion['entregado'])) 
+            entregable.save()
             return render(request, "App1/inicio.html")
     else:
         miFormulario = EntregableFormulario()
         miFormulario.fields['fechaentrega'].widget = DateInput(attrs={'type': 'date'})       
     return render(request, "App1/entregables.html", {"miFormulario": miFormulario})
 
-def busquedaCurso(request):
-    return render(request,'App1/busquedaCurso.html')
+#def busquedaCurso(request):
+ #   return render(request,'App1/busquedaCurso.html')
 
 def buscar(request):
     if request.method == 'POST':
@@ -79,3 +79,25 @@ def buscar(request):
             cursos = Curso.objects.filter(curso__icontains=numero_curso)
             return render(request, 'App1/resultadosBusqueda.html', {'cursos': cursos})
     return render(request, 'App1/.html')
+
+#ESTO ES LO AGREGADO PARA CARGAR LA TABLA DE BD PARA CADA SECCION (profesores, cursos, estudiantes, entregables)
+
+def profesores_list(request):
+    profesores = Profesor.objects.all()
+    form = ProfesorFormulario()
+    return render(request, 'App1/profesoresList.html', {'profesores': profesores, 'form': form})
+
+def cursos_list(request):
+    cursos = Curso.objects.all()
+    form = CursoFormulario()
+    return render(request, 'App1/cursosList.html', {'cursos': cursos, 'form': form})
+
+def estudiantes_list(request):
+    estudiantes = Estudiante.objects.all()
+    form = EstudianteFormulario()
+    return render(request, 'App1/estudiantesList.html', {'estudiantes': estudiantes, 'form': form})
+
+def entregables_list(request):
+    entregables = Entregable.objects.all()
+    form = EntregableFormulario()
+    return render(request, 'App1/entregablesList.html', {'entregables': entregables, 'form': form})

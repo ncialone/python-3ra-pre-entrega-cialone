@@ -4,6 +4,7 @@
 
 {% block contenidoQueCambia %}
 <!--Aquí va lo que cambia, y lo asociado a está vista :) -->
+
 <div style="display: flex; justify-content: center; align-items: center; min-height: 20vh;">
     <form id="buscar-form" method="post" action="{% url 'buscar' %}" style="display: flex; flex-direction: column;">
         {% csrf_token %}
@@ -14,4 +15,27 @@
         </div>
     </form>
 </div>
+    <br>
+    <br>
+    <br>
+    <div style="display: flex; justify-content: center; align-items: center; min-height: 10vh; flex-direction: column;">
+        <h3 style="text-align: center;">Haz click para consultar la base de cada categoría</h3>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <a href="{% url 'profesores_list' %}" style="margin-right: 10px;">
+                <button>Profesores</button>
+            </a>
+            <a href="{% url 'cursos_list' %}" style="margin-right: 10px;">
+                <button>Cursos</button>
+            </a>
+            <a href="{% url 'estudiantes_list' %}" style="margin-right: 10px;">
+                <button>Estudiantes</button>
+            </a>
+            <a href="{% url 'entregables_list' %}" style="margin-right: 10px;">
+                <button>Entregables</button>
+            </a>
+        </div>
+    </div>
+    
+
+
 {% endblock %}
