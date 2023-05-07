@@ -1,6 +1,6 @@
 # Gestor de formularios
 
-Este repositorio contiene el código fuente de un gestor de formularios web que permite cargar información en una base de datos. La aplicación web se divide en cuatro categorías de formularios: "Profesores", "Cursos", "Estudiantes" y "Entregables". Cada categoría tiene su propio formulario de carga de datos, al que se puede acceder desde la barra de navegación superior. Se pueden consultar los cursos disponibles desde la pantalla de Inicio, ingresando el nro de camada deseada.
+Este repositorio contiene el código fuente de un gestor de formularios web que permite cargar información en una base de datos. La aplicación web se divide en cuatro categorías de formularios: "Profesores", "Cursos", "Estudiantes" y "Entregables". Cada categoría tiene su propio formulario de carga de datos, al que se puede acceder desde la barra de navegación superior. Se pueden consultar los cursos disponibles desde la pantalla de Inicio, ingresando el nro de camada deseada, como así tambien, hay 4 botones para acceder a cada categoría y toda la información guardada en su correspondiente tabla de base de datos.
 
 
 ## Acceder a la aplicación
